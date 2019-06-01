@@ -9,10 +9,11 @@
 		const settings = {
 			particlesCount: 100,
 			particleRadius: 4,
-			particleBgColor: '#fff',
+			particleBgColor: '#aaa',
 			particleDefaultSpeed: 1,
 			particleAddpeed: 3,
 			bgColor: '#333',
+			distanceToConnection: 50
 		}
 
 		function Particle() {
@@ -56,13 +57,32 @@
 			}
 		}
 
+		const getDistance = ({x:x1, y:y1}, {x:x2, y:y2}) => Math.sqrt(Math.pow(x2-x1,2) + Math.pow(y2-y1,2));
+
+		const connectParticles = (particle, particlesArray) => {
+			particlesArray.map(el => {
+				if(settings.distanceToConnection > getDistance(el, particle)){
+					canvas.lineWidht = 0.5;
+					canvas.strokeStyle = settings.particleBgColor;
+					canvas.beginPath();
+					canvas.moveTo(el.x, el.y);
+					canvas.lineTo(particle.x, particle.y);
+					canvas.closePath();
+					canvas.stroke()
+				}
+			})
+		}
+
 		const particlesArray = [...Array(settings.particlesCount)].map(() => new Particle())
 
 		function loop(){
 			canvas.fillStyle = settings.bgColor;
 			canvas.fillRect(0, 0, width, height);
 
-			particlesArray.map(el => el.draw());
+			particlesArray.map(el => {
+				el.draw();
+				connectParticles(el, particlesArray);
+			});
 			window.requestAnimationFrame(loop);
 		}
 		
