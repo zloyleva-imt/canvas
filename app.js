@@ -47,7 +47,7 @@
 			}
 		}
 
-		const particlesArray = [...Array(200)].map(() => new Particle())
+		const particlesArray = [...Array(2000)].map(() => new Particle())
 
 		function loop(){
 			canvas.fillStyle = '#aaa';
