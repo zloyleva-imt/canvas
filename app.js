@@ -16,10 +16,10 @@
 		}
 
 		function Particle() {
-			/** @property @private y */
-			let y = Math.random() * height;
+			/** @property @public y */
+			this.y = Math.random() * height;
 			/** @property x */
-			let x = Math.random() * width;
+			this.x = Math.random() * width;
 
 			let radius = Math.random() * settings.particleRadius;
 
@@ -31,24 +31,24 @@
 				dy: Math.sin(angle)*speed,
 			}
 
-			let update = function(){
+			let update = () => {
 				reflectionMotion();
-				x += d.dx;
-				y += d.dy;
+				this.x += d.dx;
+				this.y += d.dy;
 			}
 
-			const reflectionMotion = function(){
-				if(x > width || x <= 0){
+			const reflectionMotion = () => {
+				if(this.x > width || this.x <= 0){
 					d.dx *= -1;
 				}
-				if(y > height || y <= 0){
+				if(this.y > height || this.y <= 0){
 					d.dy *= -1;
 				}
 			}
 
-			this.draw = function () {
+			this.draw = () => {
 				canvas.beginPath();
-				canvas.arc(x, y, radius, 0, Math.PI * 2);
+				canvas.arc(this.x, this.y, radius, 0, Math.PI * 2);
 				canvas.closePath();
 				canvas.fillStyle = settings.particleBgColor;
 				canvas.fill();
