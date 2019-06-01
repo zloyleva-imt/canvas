@@ -6,15 +6,24 @@
 		const height = canvasEl.height = window.innerHeight;
 		const width = canvasEl.width = window.innerWidth;
 
+		const settings = {
+			particlesCount: 100,
+			particleRadius: 4,
+			particleBgColor: '#fff',
+			particleDefaultSpeed: 1,
+			particleAddpeed: 3,
+			bgColor: '#333',
+		}
+
 		function Particle() {
 			/** @property @private y */
 			let y = Math.random() * height;
 			/** @property x */
 			let x = Math.random() * width;
 
-			let radius = Math.random() * 5;
+			let radius = Math.random() * settings.particleRadius;
 
-			let speed = 1 + Math.random()*3;
+			let speed = settings.particleDefaultSpeed + Math.random()*settings.particleAddpeed;
 			let angle = Math.floor(Math.random()*360);
 
 			let d = {
@@ -41,16 +50,16 @@
 				canvas.beginPath();
 				canvas.arc(x, y, radius, 0, Math.PI * 2);
 				canvas.closePath();
-				canvas.fillStyle = '#333';
+				canvas.fillStyle = settings.particleBgColor;
 				canvas.fill();
 				update();
 			}
 		}
 
-		const particlesArray = [...Array(2000)].map(() => new Particle())
+		const particlesArray = [...Array(settings.particlesCount)].map(() => new Particle())
 
 		function loop(){
-			canvas.fillStyle = '#aaa';
+			canvas.fillStyle = settings.bgColor;
 			canvas.fillRect(0, 0, width, height);
 
 			particlesArray.map(el => el.draw());
