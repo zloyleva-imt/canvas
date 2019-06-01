@@ -13,7 +13,8 @@
 			particleDefaultSpeed: 1,
 			particleAddpeed: 3,
 			bgColor: '#333',
-			distanceToConnection: 50
+			distanceToConnection: 80,
+			lineColor: 'rgba(255,255,255,opacity)'
 		}
 
 		function Particle() {
@@ -61,9 +62,12 @@
 
 		const connectParticles = (particle, particlesArray) => {
 			particlesArray.map(el => {
-				if(settings.distanceToConnection > getDistance(el, particle)){
+
+				const opacity = 1 - getDistance(el, particle)/settings.distanceToConnection
+
+				if(opacity > 0){
 					canvas.lineWidht = 0.5;
-					canvas.strokeStyle = settings.particleBgColor;
+					canvas.strokeStyle = settings.lineColor.replace('opacity',opacity);
 					canvas.beginPath();
 					canvas.moveTo(el.x, el.y);
 					canvas.lineTo(particle.x, particle.y);
