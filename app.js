@@ -7,10 +7,10 @@
 		const width = canvasEl.width = window.innerWidth;
 
 		function Particle(){
-			this.x = Math.random()*height;
-			this.y = Math.random()*width;
+			this.y = Math.random()*height;
+			this.x = Math.random()*width;
 
-			this.radius = 10;
+			this.radius = Math.random()*5;
 
 			this.draw = function(){
 				canvas.beginPath();
@@ -21,13 +21,12 @@
 			}
 		}
 
-		let p1 = new Particle();
-		let p2 = new Particle();
-		let p3 = new Particle();
-		
-		p1.draw()
-		p2.draw()
-		p3.draw()
+		const particlesArray = [...Array(200)].map(()=>{
+			let partilce = new Particle();
+			partilce.draw();
+			return partilce;
+		})
+
 		debugger
 	}
 )()
