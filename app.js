@@ -14,7 +14,7 @@
 
 			let radius = Math.random() * 5;
 
-			let speed = 1 + Math.random()*4;
+			let speed = 1 + Math.random()*3;
 			let angle = Math.floor(Math.random()*360);
 
 			let d = {
@@ -23,8 +23,18 @@
 			}
 
 			let update = function(){
+				reflectionMotion();
 				x += d.dx;
 				y += d.dy;
+			}
+
+			const reflectionMotion = function(){
+				if(x > width || x <= 0){
+					d.dx *= -1;
+				}
+				if(y > height || y <= 0){
+					d.dy *= -1;
+				}
 			}
 
 			this.draw = function () {
